@@ -5,7 +5,7 @@
 #include <set>
 using namespace std;
 
-
+/*
 set<int> prime; // a set will be the collection of prime numbers,
 
 
@@ -192,7 +192,7 @@ string decoder(vector<int> encoded)
     return s;
 }
 
-
+*/
 int main()
 {
 
