@@ -1,0 +1,27 @@
+﻿  Dll12.cpp
+D:\CPP projects\OperatingSystems_University\lb2\Dll12\Dll12\Dll12.h(15,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  (compiling source file '/Dll12.cpp')
+  
+D:\CPP projects\OperatingSystems_University\lb2\Dll12\Dll12\Dll12.cpp(79,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  (compiling source file '/Dll12.cpp')
+  
+D:\CPP projects\OperatingSystems_University\lb2\Dll12\Dll12\Dll12.cpp(211,27): warning C4244: '*=': conversion from 'double' to '__int64', possible loss of data
+  (compiling source file '/Dll12.cpp')
+  
+D:\CPP projects\OperatingSystems_University\lb2\Dll12\Dll12\Dll12.cpp(251,31): warning C4244: 'argument': conversion from '__int64' to '_Ty', possible loss of data
+D:\CPP projects\OperatingSystems_University\lb2\Dll12\Dll12\Dll12.cpp(251,31): warning C4244:         with
+D:\CPP projects\OperatingSystems_University\lb2\Dll12\Dll12\Dll12.cpp(251,31): warning C4244:         [
+D:\CPP projects\OperatingSystems_University\lb2\Dll12\Dll12\Dll12.cpp(251,31): warning C4244:             _Ty=int
+D:\CPP projects\OperatingSystems_University\lb2\Dll12\Dll12\Dll12.cpp(251,31): warning C4244:         ]
+  (compiling source file '/Dll12.cpp')
+  
+D:\CPP projects\OperatingSystems_University\lb2\Dll12\Dll12\Dll12.cpp(265,21): warning C4244: 'argument': conversion from '__int64' to '_Elem', possible loss of data
+D:\CPP projects\OperatingSystems_University\lb2\Dll12\Dll12\Dll12.cpp(265,21): warning C4244:         with
+D:\CPP projects\OperatingSystems_University\lb2\Dll12\Dll12\Dll12.cpp(265,21): warning C4244:         [
+D:\CPP projects\OperatingSystems_University\lb2\Dll12\Dll12\Dll12.cpp(265,21): warning C4244:             _Elem=char
+D:\CPP projects\OperatingSystems_University\lb2\Dll12\Dll12\Dll12.cpp(265,21): warning C4244:         ]
+  (compiling source file '/Dll12.cpp')
+  
+  LINK : program database D:\CPP projects\OperatingSystems_University\lb2\ConsoleApplication12\x64\Debug\Dll12.pdb missing; performing full link
+     Creating library D:\CPP projects\OperatingSystems_University\lb2\ConsoleApplication12\x64\Debug\Dll12.lib and object D:\CPP projects\OperatingSystems_University\lb2\ConsoleApplication12\x64\Debug\Dll12.exp
+  Dll12.vcxproj -> D:\CPP projects\OperatingSystems_University\lb2\ConsoleApplication12\x64\Debug\Dll12.dll
