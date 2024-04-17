@@ -1,237 +1,228 @@
-#include <Dll12.h>// Include rsa.h for function declarations
+﻿#include <Dll12.h>// Include rsa.h for function declarations
 #include <iostream> // Include the necessary header for std::cout, std::endl
 
-
+#include <vector>;
+#include <set>
 using namespace std;
-std::string encryptRSA_in(const std::string& data, int e, int n);
-void generateRSAKeys_in(int& d, int& e, int& n);
-int getRandomNumber(int min, int max);
-int gcd(int a, int b);
-std::string decryptRSA_in(const std::string& encryptedData, int d, int n);
-unsigned long int pow_custom(char c, int n);
-unsigned long int modExp(unsigned long int base, unsigned long int exp, unsigned long int mod);
-//int main() {
-//
-//    srand(time(NULL)); 
-//
-//
-//    int d0, e0, n0;
-//    generateRSAKeys_in(d0, e0, n0);
-//    cout << d0 << " - d0; " << e0 << " - e0; " << n0 << " - n0; ";
-//
-//    for (int i = 0; i < 5; ++i) {
-//
-//        std::string data = "data";
-//
-//
-//        std::string e0t = encryptRSA_in(data, e0, n0);
-//
-//
-//        std::string d0e0t = decryptRSA_in(e0t, d0, n0);
-//
-//
-//        if (d0e0t != data) {
-//            std::cout << "Error: d0e0t not equal data[" << i << "]" << std::endl;
-//        }
-//        else {
-//            std::cout << "d0e0t = data[" << i << "]" << std::endl;
-//        }
-//    }
-//
-//    return 0;
-//}
-//
-//
-//
-//
-//void generateRSAKeys_in(int& d, int& e, int& n) {
-//    int p = getRandomNumber(200, 500); // Increase the range for p
-//    int q = getRandomNumber(200, 500); // Increase the range for q
-//    n = p * q;  // number n
-//    int phi = (p - 1) * (q - 1); // number phi
-//    e = getRandomNumber(2, phi - 1); // generate random E
-//    while (gcd(e, phi) != 1) {
-//        e = getRandomNumber(2, phi - 1);    // check if E is a coprime of phi
-//    }
-//    d = 1;
-//    while ((d * e) % phi != 1) {
-//        d++; // fill d with the value that fits the formula
-//    }
-//}
-//
-//int getRandomNumber(int min, int max) {
-//    return rand() % (max - min + 1) + min;
-//}
-//
-//int gcd(int a, int b) {
-//    while (b != 0) {
-//        int temp = b;
-//        b = a % b;
-//        a = temp;
-//    }
-//    return a;
-//}
-//
-//std::string encryptRSA_in(const std::string& data, int e, int n) {
-//    std::string encryptedData = "";
-//    for (char c : data) {
-//        unsigned long int encryptedChar = modExp(c, e, n);
-//        std::cout << encryptedChar;
-//        encryptedData += std::to_string(encryptedChar) + " ";
-//    }
-//    return encryptedData;
-//}
-//
-//std::string decryptRSA_in(const std::string& encryptedData, int d, int n) {
-//    std::string decryptedData = "";
-//    size_t pos = 0;
-//    while (pos < encryptedData.length()) {
-//        size_t spacePos = encryptedData.find(' ', pos);
-//        if (spacePos == std::string::npos) {
-//            spacePos = encryptedData.length();
-//        }
-//        std::string encryptedCharStr = encryptedData.substr(pos, spacePos - pos);
-//        unsigned long int encryptedChar = std::stoul(encryptedCharStr); // Use unsigned long int to avoid overflow
-//        unsigned long int decryptedChar = modExp(encryptedChar, d, n); // Use modular exponentiation
-//        decryptedData += static_cast<char>(decryptedChar);
-//        pos = spacePos + 1;
-//    }
-//    return decryptedData;
-//}
-//
-//
-//unsigned long int modExp(unsigned long int base, unsigned long int exp, unsigned long int mod) {
-//    unsigned long int result = 1;
-//    base = base % mod;
-//    while (exp > 0) {
-//        if (exp % 2 == 1)
-//            result = (result * base) % mod;
-//        exp = exp >> 1;
-//        base = (base * base) % mod;
-//    }
-//    return result;
-//}
 
-#include <iostream>
-#include <string>
-#include <cstdlib>
-#include <ctime>
 
-std::string encryptRSA_in(const std::string& data, int e, int n);
-std::string decryptRSA_in(const std::string& encryptedData, int d, int n);
-void generateRSAKeys_in(int& d, int& e, int& n);
-int getRandomNumber(int min, int max);
-int gcd(int a, int b);
-unsigned long int modExp(unsigned long int base, unsigned long int exp, unsigned long int mod);
+set<int> prime; // a set will be the collection of prime numbers,
 
-int main() {
 
-    srand(time(NULL));
 
-    int d0, e0, n0;
-    generateRSAKeys_in(d0, e0, n0);
-    std::cout << d0 << " - d0; " << e0 << " - e0; " << n0 << " - n0; ";
+int public_key;
 
-    std::string data = "data";
+int private_key;
 
-    std::string e0t = encryptRSA_in(data, e0, n0);
+int n;
 
-    std::string d0e0t = decryptRSA_in(e0t, d0, n0);
 
-    if (d0e0t != data) {
-        std::cout << "Error: d0e0t not equal data" << std::endl;
+void primefiller()
+{
+
+    // method used to fill the primes set is seive of
+
+    // eratosthenes(a method to collect prime numbers)
+
+    vector<bool> seive(250, true);
+
+    seive[0] = false;
+
+    seive[1] = false;
+
+    for (int i = 2; i < 250; i++) {
+
+        for (int j = i * 2; j < 250; j += i) {
+
+            seive[j] = false;
+
+        }
+
+    } // filling the prime numbers
+
+    for (int i = 0; i < seive.size(); i++) {
+
+        if (seive[i])
+
+            prime.insert(i);
+
     }
-    else {
-        std::cout << "d0e0t = data" << std::endl;
+}
+// picking a random prime number and erasing that prime
+// number from list because p!=q
+
+int pickrandomprime()
+{
+
+    int k = rand() % prime.size();
+
+    auto it = prime.begin();
+
+    while (k--)
+
+        it++;
+
+    int ret = *it;
+
+    prime.erase(it);
+
+    return ret;
+}
+int gcd(int a, int b) {
+
+    if (b == 0) {
+
+        return a;
+
     }
+
+    return gcd(b, a % b);
+}
+
+void setkeys()
+{
+
+    int prime1 = pickrandomprime(); // first prime number
+
+    int prime2 = pickrandomprime(); // second prime number
+
+    // to check the prime numbers selected
+
+    // cout<<prime1<<" "<<prime2<<endl;
+
+    n = prime1 * prime2;
+
+    int fi = (prime1 - 1) * (prime2 - 1);
+
+    int e = 2;
+
+    while (1) {
+
+        if (gcd(e, fi) == 1)
+
+            break;
+
+        e++;
+
+    } // d = (k*Φ(n) + 1) / e for some integer k
+
+    public_key = e;
+
+    int d = 2;
+
+    while (1) {
+
+        if ((d * e) % fi == 1)
+
+            break;
+
+        d++;
+
+    }
+
+    private_key = d;
+}
+// to encrypt the given number
+
+long long int encrypt(double message)
+{
+
+    int e = public_key;
+
+    long long int encrpyted_text = 1;
+
+    while (e--) {
+
+        encrpyted_text *= message;
+
+        encrpyted_text %= n;
+
+    }
+
+    return encrpyted_text;
+}
+// to decrypt the given number
+
+long long int decrypt(int encrpyted_text)
+{
+
+    int d = private_key;
+
+    long long int decrypted = 1;
+
+    while (d--) {
+
+        decrypted *= encrpyted_text;
+
+        decrypted %= n;
+
+    }
+
+    return decrypted;
+}
+// first converting each character to its ASCII value and
+// then encoding it then decoding the number to get the
+// ASCII and converting it to character
+
+vector<int> encoder(string message)
+{
+
+    vector<int> form;
+
+    // calling the encrypting function in encoding function
+
+    for (auto& letter : message)
+
+        form.push_back(encrypt((int)letter));
+
+    return form;
+}
+
+string decoder(vector<int> encoded)
+{
+
+    string s;
+
+    // calling the decrypting function decoding function
+
+    for (auto& num : encoded)
+
+        s += decrypt(num);
+
+    return s;
+}
+
+
+int main()
+{
+
+    primefiller();
+
+    setkeys();
+
+    string message = "Igor bezdar, one hundred 100%";
+
+    //manual input below
+
+    // cout<<"enter the message\n";getline(cin,message);
+
+    vector<int> coded = encoder(message);
+
+    cout << "Initial message:\n" << message;
+
+    cout << "\n\nThe encoded message(encrypted by public "
+
+        "key)\n";
+
+    for (auto& p : coded)
+
+        cout << p;
+
+    cout << "\n\nThe decoded message(decrypted by private "
+
+        "key)\n";
+
+    cout << decoder(coded) << endl;
 
     return 0;
-}
-
-std::string encryptRSA_in(const std::string& data, int e, int n) {
-    std::string encryptedData = "";
-    const int blockSize = 2; // Set the block size
-    for (size_t i = 0; i < data.length(); i += blockSize) {
-        std::string block = data.substr(i, blockSize);
-        unsigned long int encryptedBlock = 0;
-        for (char c : block) {
-            encryptedBlock = (encryptedBlock * 256) + c; // Combine characters into one large number
-        }
-        unsigned long int encryptedChar = modExp(encryptedBlock, e, n);
-        encryptedData += std::to_string(encryptedChar) + " ";
-    }
-    return encryptedData;
-}
-
-std::string decryptRSA_in(const std::string& encryptedData, int d, int n) {
-    std::string decryptedData = "";
-    const int blockSize = 2; // Set the block size
-    size_t pos = 0;
-    while (pos < encryptedData.length()) {
-        size_t spacePos = encryptedData.find(' ', pos);
-        if (spacePos == std::string::npos) {
-            spacePos = encryptedData.length();
-        }
-        std::string encryptedCharStr = encryptedData.substr(pos, spacePos - pos);
-        unsigned long int encryptedChar = std::stoul(encryptedCharStr); // Use unsigned long int to avoid overflow
-        unsigned long int decryptedBlock = modExp(encryptedChar, d, n); // Use modular exponentiation
-        std::string decryptedBlockStr;
-        while (decryptedBlock != 0) {
-            char c = decryptedBlock & 0xFF; // Extract characters from decrypted block
-            decryptedBlockStr = c + decryptedBlockStr;
-            decryptedBlock >>= 8;
-        }
-        decryptedData += decryptedBlockStr;
-        pos = spacePos + 1;
-    }
-    return decryptedData;
-}
-
-
-void generateRSAKeys_in(int& d, int& e, int& n) {
-    int p = getRandomNumber(50, 100); // number p
-    int q = getRandomNumber(50, 100); // number q
-    n = p * q;  // number n
-    int phi = (p - 1) * (q - 1); // number phi
-    e = getRandomNumber(2, phi - 1); // generate random E
-    while (gcd(e, phi) != 1) {
-        e = getRandomNumber(2, phi - 1);    // check if E is simple number with phi and if not then generate new random number
-    }
-    d = 1;
-    while ((d * e) % phi != 1) {
-        d++; // fill d with the value that fits the formula
-    }
-}
-
-int getRandomNumber(int min, int max) {
-    return rand() % (max - min + 1) + min;
-}
-
-int gcd(int a, int b) {
-    while (b != 0) {
-        int temp = b;
-        b = a % b;
-        a = temp;
-    }
-    return a;
-}
-
-unsigned long int modExp(unsigned long int base, unsigned long int exp, unsigned long int mod) {
-    unsigned long int result = 1;
-    base = base % mod;
-    while (exp > 0) {
-        if (exp % 2 == 1)
-            result = (result * base) % mod;
-        exp = exp >> 1;
-        base = (base * base) % mod;
-    }
-    return result;
-}
-
-unsigned long int pow_custom(char c, int n) {
-    unsigned long int result = c;
-    for (int i = n - 1; i > 0; i--) {
-        result *= c;
-    }
-    return result;
 }
